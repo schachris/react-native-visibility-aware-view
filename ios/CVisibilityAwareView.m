@@ -1,16 +1,16 @@
 //
-//  VisibilityAwareView.m
+//  CVisibilityAwareView.m
 //  react-native-visibility-aware-view
 //
 //  Created by Christian Schaffrath on 09.05.23.
 //
 
-#import "VisibilityAwareView.h"
+#import "CVisibilityAwareView.h"
 #import "Utils.h"
 
 NSTimeInterval VISIBILITY_TIMER_ACCURACY = 250;
 
-@interface VisibilityAwareView()
+@interface CVisibilityAwareView()
 
 @property (nonatomic, strong) NSTimer *timer;
 
@@ -18,7 +18,7 @@ NSTimeInterval VISIBILITY_TIMER_ACCURACY = 250;
 
 @end
 
-@implementation VisibilityAwareView
+@implementation CVisibilityAwareView
 {
     BOOL _wasDisplayedOnce;
     BOOL _isViewVisible;
@@ -129,7 +129,6 @@ NSTimeInterval VISIBILITY_TIMER_ACCURACY = 250;
     CGRect frameOnScreen = [self.window convertRect:frameInWindow toWindow:UIApplication.sharedApplication.keyWindow];
     
     BOOL visible = [Utils intersects:frameOnScreen andRect:self.window.frame minPercentage:_minVisibileArea];
-//    BOOL visible = CGRectIntersectsRect(frameOnScreen, self.window.frame);
     return visible;
 }
 
@@ -172,7 +171,9 @@ NSTimeInterval VISIBILITY_TIMER_ACCURACY = 250;
             _wasDisplayedOnce = YES;
             
             [self startIntervalTrackingIfNotRunningAlready];
-            
+            if(self.delegate){
+                [self.delegate viewDidEnterVisibleArea:self withFrameVisible:frameVisible andAppInForeground:!self.appInBackground];
+            }
             if(self.onBecomeVisible){
                 self.onBecomeVisible(@{
                     @"app_open": @(!self.appInBackground),
@@ -180,6 +181,10 @@ NSTimeInterval VISIBILITY_TIMER_ACCURACY = 250;
                 });
             }
         }else{
+            if(self.delegate){
+                [self.delegate viewDidLeaveVisibleArea:self withFrameInvisible:!frameVisible andAppInBackground:self.appInBackground];
+            }
+            
             if(self.onBecomeInvisible){
                 self.onBecomeInvisible(@{
                     @"app_closed": @(self.appInBackground),

@@ -1,18 +1,21 @@
 import * as React from 'react';
 
-import { Alert, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 
 import { VisibilityAwareView } from 'react-native-visibility-aware-view';
 
 export default function App() {
+  const [ignoreAppState, setIgnoreAppState] = React.useState(false);
   return (
     <View style={styles.container}>
       <View style={styles.topSpace} />
+      <Text>ignoreAppState</Text>
+      <Switch onValueChange={setIgnoreAppState} value={ignoreAppState} />
       <ScrollView style={styles.container}>
         <View style={styles.topScrollSpace} />
         <VisibilityAwareView
           minVisibleArea={0.5}
-          ignoreAppState={false}
+          ignoreAppState={ignoreAppState}
           onBecomeVisible={(event) => {
             Alert.alert('Visibility Visible', `${JSON.stringify(event.nativeEvent)}`);
           }}

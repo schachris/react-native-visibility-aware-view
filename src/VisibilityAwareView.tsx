@@ -2,8 +2,7 @@ import React, { useRef } from 'react';
 
 import { UIManager, findNodeHandle } from 'react-native';
 
-import {
-  NativeVisibilityAwareView,
+import NativeVisibilityAwareView, {
   VisibilityAwareViewComponentName,
   VisibilityAwareViewHandle,
   type VisibilityAwareViewProps,

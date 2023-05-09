@@ -2,7 +2,7 @@
 #import <React/RCTUIManager.h>
 #import "RCTBridge.h"
 #import "Utils.h"
-#import "VisibilityAwareView.h"
+#import "CVisibilityAwareView.h"
 
 @interface VisibilityAwareViewManager : RCTViewManager
 @end
@@ -13,7 +13,7 @@ RCT_EXPORT_MODULE(VisibilityAwareView)
 
 - (UIView *)view
 {
-  return [[VisibilityAwareView alloc] init];
+  return [[CVisibilityAwareView alloc] init];
 }
 
 RCT_EXPORT_VIEW_PROPERTY(onBecomeVisible, RCTBubblingEventBlock)
@@ -25,8 +25,8 @@ RCT_EXPORT_VIEW_PROPERTY(ignoreAppState, BOOL)
 
 RCT_EXPORT_METHOD(start:(nonnull NSNumber*) reactTag) {
     [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
-        VisibilityAwareView *view = viewRegistry[reactTag];
-        if (!view || ![view isKindOfClass:[VisibilityAwareView class]]) {
+        CVisibilityAwareView *view = viewRegistry[reactTag];
+        if (!view || ![view isKindOfClass:[CVisibilityAwareView class]]) {
             RCTLogError(@"Cannot find NativeView with tag #%@", reactTag);
             return;
         }
@@ -36,8 +36,8 @@ RCT_EXPORT_METHOD(start:(nonnull NSNumber*) reactTag) {
 
 RCT_EXPORT_METHOD(stop:(nonnull NSNumber*) reactTag) {
     [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
-        VisibilityAwareView *view = viewRegistry[reactTag];
-        if (!view || ![view isKindOfClass:[VisibilityAwareView class]]) {
+        CVisibilityAwareView *view = viewRegistry[reactTag];
+        if (!view || ![view isKindOfClass:[CVisibilityAwareView class]]) {
             RCTLogError(@"Cannot find NativeView with tag #%@", reactTag);
             return;
         }
