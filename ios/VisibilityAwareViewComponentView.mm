@@ -1,5 +1,5 @@
 #ifdef RCT_NEW_ARCH_ENABLED
-#import "VisibilityAwareView.h"
+#import "VisibilityAwareViewComponentView.h"
 
 #import <react/renderer/components/RNVisibilityAwareViewSpec/ComponentDescriptors.h>
 #import <react/renderer/components/RNVisibilityAwareViewSpec/EventEmitters.h>
@@ -11,11 +11,11 @@
 
 using namespace facebook::react;
 
-@interface VisibilityAwareView () <RCTVisibilityAwareViewProtocol>
+@interface VisibilityAwareViewComponentView () <RCTVisibilityAwareViewViewProtocol>
 
 @end
 
-@implementation VisibilityAwareView {
+@implementation VisibilityAwareViewComponentView {
     UIView * _view;
 }
 
@@ -43,18 +43,19 @@ using namespace facebook::react;
     const auto &oldViewProps = *std::static_pointer_cast<VisibilityAwareViewProps const>(_props);
     const auto &newViewProps = *std::static_pointer_cast<VisibilityAwareViewProps const>(props);
 
-    if (oldViewProps.color != newViewProps.color) {
-        NSString * colorToConvert = [[NSString alloc] initWithUTF8String: newViewProps.color.c_str()];
-        [_view setBackgroundColor: [Utils hexStringToColor:colorToConvert]];
-    }
+//    if (oldViewProps.color != newViewProps.color) {
+//        NSString * colorToConvert = [[NSString alloc] initWithUTF8String: newViewProps.color.c_str()];
+//        [_view setBackgroundColor: [Utils hexStringToColor:colorToConvert]];
+//    }
 
     [super updateProps:props oldProps:oldProps];
 }
 
 Class<RCTComponentViewProtocol> VisibilityAwareViewCls(void)
 {
-    return VisibilityAwareView.class;
+    return VisibilityAwareViewComponentView.class;
 }
+
 
 @end
 #endif

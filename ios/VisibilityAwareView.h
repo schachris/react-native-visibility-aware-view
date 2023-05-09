@@ -1,17 +1,27 @@
-// This guard prevent this file to be compiled in the old architecture.
-#ifdef RCT_NEW_ARCH_ENABLED
-#import <React/RCTViewComponentView.h>
-#import <UIKit/UIKit.h>
+//
+//  VisibilityAwareView.h
+//  react-native-visibility-aware-view
+//
+//  Created by Christian Schaffrath on 09.05.23.
+//
 
-#ifndef VisibilityAwareViewNativeComponent_h
-#define VisibilityAwareViewNativeComponent_h
+#import <UIKit/UIKit.h>
+#import <React/RCTComponent.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VisibilityAwareView : RCTViewComponentView
+@interface VisibilityAwareView : UIView
+
+@property (nonatomic, copy) RCTBubblingEventBlock onBecomeVisible;
+@property (nonatomic, copy) RCTBubblingEventBlock onBecomeInvisible;
+
+- (void) setAccuracy:(NSNumber *) accuracy;
+- (void) setMinVisibleArea:(NSNumber *) minVisibleArea;
+- (void) setIgnoreAppState:(BOOL) ignoreAppState;
+
+- (void) start;
+- (void) stop;
+
 @end
 
 NS_ASSUME_NONNULL_END
-
-#endif /* VisibilityAwareViewNativeComponent_h */
-#endif /* RCT_NEW_ARCH_ENABLED */

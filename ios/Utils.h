@@ -2,7 +2,9 @@
 #define Utils_h
 
 @interface Utils : NSObject
-+ hexStringToColor:(NSString *)stringToConvert;
++ (BOOL)isVisible:(UIView *)view inView:(UIView *)inView minPercentage:(CGFloat) minPercentage;
++ (BOOL) intersects: (CGRect) rect1 andRect:(CGRect) rect2 minPercentage:(CGFloat) minPercentage;
++ (CGFloat) getIntersectionSize: (CGRect) rect1 andRect:(CGRect) rect2;
 @end
 
 #endif /* Utils_h */

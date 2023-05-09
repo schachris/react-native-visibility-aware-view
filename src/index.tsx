@@ -1,2 +1,2 @@
-export { default as VisibilityAwareView } from './VisibilityAwareViewNativeComponent';
-export * from './VisibilityAwareViewNativeComponent';
+export { VisibilityAwareView } from './VisibilityAwareView';
+export { VisibilityAwareViewProps, VisibilityAwareViewHandle } from './VisibilityAwareViewNativeComponent';
