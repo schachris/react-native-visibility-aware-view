@@ -4,6 +4,31 @@ import { Alert, ScrollView, StyleSheet, Switch, Text, View } from 'react-native'
 
 import { VisibilityAwareView } from 'react-native-visibility-aware-view';
 
+function ViewWithVisibility() {
+  const [visible, setVisible] = React.useState(false);
+  const txt = visible ? 'Visible' : 'Not visible';
+  return (
+    <VisibilityAwareView
+      minVisibleArea={0.5}
+      onBecomeVisible={(event) => {
+        console.log('VISIBLE', event.nativeEvent);
+        setVisible(true);
+      }}
+      onBecomeInvisible={(event) => {
+        console.log('INVISIBLE', event.nativeEvent);
+        setVisible(false);
+      }}
+      style={styles.borderedBox}
+    >
+      <Text>{txt}</Text>
+      <Text>{txt}</Text>
+      <Text>{txt}</Text>
+      <Text>{txt}</Text>
+      <Text>{txt}</Text>
+    </VisibilityAwareView>
+  );
+}
+
 export default function App() {
   const [ignoreAppState, setIgnoreAppState] = React.useState(false);
   return (
@@ -25,6 +50,8 @@ export default function App() {
           style={styles.box}
         />
         <View style={styles.bottomSpace} />
+        <ViewWithVisibility />
+        <View style={styles.bottomSpace} />
       </ScrollView>
     </View>
   );
@@ -39,6 +66,11 @@ const styles = StyleSheet.create({
     height: 60,
     marginVertical: 20,
     backgroundColor: 'green',
+  },
+  borderedBox: {
+    padding: 10,
+    borderWidth: 2,
+    borderColor: 'purple',
   },
   topScrollSpace: {
     height: 300,
