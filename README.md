@@ -1,4 +1,6 @@
-# react-native-visibility-aware-view
+# `react-native-visibility-aware-view`
+
+![Supports iOS and Android and Web][support-badge] ![npm][npm-badge]
 
 A view which is aware of its visibility. It also tracks itself when the view is scrolled or moved.
 
@@ -78,3 +80,6 @@ MIT
 ---
 
 Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+
+[npm-badge]: https://img.shields.io/npm/v/react-native-visibility-aware-view.svg?style=flat-square
+[support-badge]: https://img.shields.io/badge/platforms-android%20|%20ios%20|%20web-lightgrey.svg?style=flat-square
