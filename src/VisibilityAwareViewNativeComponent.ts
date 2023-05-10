@@ -1,9 +1,19 @@
-import type { ViewProps } from 'react-native';
+import type { HostComponent, ViewProps } from 'react-native';
 
 import type { BubblingEventHandler, Float, WithDefault } from 'react-native/Libraries/Types/CodegenTypes';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 
 export const VisibilityAwareViewComponentName = 'VisibilityAwareView';
+
+type BecomeVisibleEvent = Readonly<{
+  app_open: boolean;
+  frame_visible: boolean;
+}>;
+
+type BecomeInvisibleEvent = Readonly<{
+  app_closed: boolean;
+  frame_visible: boolean;
+}>;
 
 export interface VisibilityAwareViewProps extends ViewProps {
   accuracy?: WithDefault<Float, 250>;
@@ -17,8 +27,8 @@ export interface VisibilityAwareViewProps extends ViewProps {
    * @default: false
    */
   ignoreAppState?: WithDefault<boolean, false>;
-  onBecomeVisible?: BubblingEventHandler<Readonly<{ app_open: boolean; frame_visible: boolean }>>;
-  onBecomeInvisible?: BubblingEventHandler<Readonly<{ app_closed: boolean; frame_visible: boolean }>>;
+  onBecomeVisible?: BubblingEventHandler<Readonly<BecomeVisibleEvent>>;
+  onBecomeInvisible?: BubblingEventHandler<Readonly<BecomeInvisibleEvent>>;
 }
 
 export type VisibilityAwareViewHandle = {
@@ -26,4 +36,6 @@ export type VisibilityAwareViewHandle = {
   stop: () => void;
 };
 
-export default codegenNativeComponent<VisibilityAwareViewProps>('VisibilityAwareView');
+export default codegenNativeComponent<VisibilityAwareViewProps>(
+  'VisibilityAwareView'
+) as HostComponent<VisibilityAwareViewProps>;

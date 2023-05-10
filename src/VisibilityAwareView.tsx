@@ -2,11 +2,13 @@ import React, { useRef } from 'react';
 
 import { UIManager, findNodeHandle } from 'react-native';
 
-import NativeVisibilityAwareView, {
+import {
   VisibilityAwareViewComponentName,
   VisibilityAwareViewHandle,
   type VisibilityAwareViewProps,
 } from './VisibilityAwareViewNativeComponent';
+
+const NativeVisibilityAwareView = require('./VisibilityAwareViewNativeComponent').default;
 
 const _VisibilityAwareView: React.ForwardRefRenderFunction<VisibilityAwareViewHandle, VisibilityAwareViewProps> = (
   props,

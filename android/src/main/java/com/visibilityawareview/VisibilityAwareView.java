@@ -16,12 +16,14 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.UIManagerHelper;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.events.Event;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
 
 public class VisibilityAwareView extends ReactViewGroup implements View.OnAttachStateChangeListener, View.OnLayoutChangeListener, LifecycleEventListener {
-  private static final long TIMER_ACCURACY = 200;
+  private static final long TIMER_ACCURACY = 250;
 
   private boolean isAppInBackground = false;
   private Boolean _attachedToWindow = false;
@@ -46,12 +48,13 @@ public class VisibilityAwareView extends ReactViewGroup implements View.OnAttach
    * Setters
    */
 
-  public VisibilityAwareView(ThemedReactContext context, ReactApplicationContext reactApplicationContext) {
+  public VisibilityAwareView(ThemedReactContext context, @Nullable ReactApplicationContext reactApplicationContext) {
     super(context);
 
-    this.reactApplicationContext = reactApplicationContext;
-    this.reactApplicationContext.addLifecycleEventListener(this);
-
+    if(reactApplicationContext != null) {
+      this.reactApplicationContext = reactApplicationContext;
+      this.reactApplicationContext.addLifecycleEventListener(this);
+    }
     _interval_accuracy = TIMER_ACCURACY;
     _minVisibleArea = 0.01;
     _ignoreAppState = false;
@@ -172,9 +175,16 @@ public class VisibilityAwareView extends ReactViewGroup implements View.OnAttach
    * Fire Callbacks + helper
    */
 
-  public class ChangeVisibilityEvent extends Event<ChangeVisibilityEvent> {
-    public static final String BECOME_VISIBLE_EVENT_NAME = "onBecomeVisible";
-    public static final String BECOME_INVISIBLE_EVENT_NAME = "onBecomeInvisible";
+  public VisibilityAwareViewHandler handler;
+
+  interface VisibilityAwareViewHandler {
+    void viewDidEnterVisibleArea(VisibilityAwareView customView, WritableMap eventData);
+    void viewDidLeaveVisibleArea(VisibilityAwareView customView, WritableMap eventData);
+  }
+
+  public static class ChangeVisibilityEvent extends Event<ChangeVisibilityEvent> {
+    public static final String BECOME_VISIBLE_EVENT_NAME = "topOnBecomeVisible";
+    public static final String BECOME_INVISIBLE_EVENT_NAME = "topOnBecomeInvisible";
 
     private final boolean isVisible;
     private final WritableMap eventData;
@@ -190,6 +200,16 @@ public class VisibilityAwareView extends ReactViewGroup implements View.OnAttach
       return this.isVisible ? BECOME_VISIBLE_EVENT_NAME : BECOME_INVISIBLE_EVENT_NAME;
     }
 
+    @Override
+    public short getCoalescingKey() {
+      return 0;
+    }
+
+    @Override
+    public boolean canCoalesce() {
+      return false;
+    }
+
     @Nullable
     @Override
     protected WritableMap getEventData() {
@@ -202,10 +222,9 @@ public class VisibilityAwareView extends ReactViewGroup implements View.OnAttach
     }
   }
 
-  private void fireOnChangeVisibilityEvent(Boolean frameVisible) {
-    ReactContext reactContext = (ReactContext) getContext();
-    int reactTag = this.getId();
 
+
+  private void fireOnChangeVisibilityEvent(Boolean frameVisible) {
     WritableMap eventData = Arguments.createMap();
     eventData.putBoolean("frame_visible", frameVisible);
     if (this.isViewVisible()){
@@ -213,9 +232,15 @@ public class VisibilityAwareView extends ReactViewGroup implements View.OnAttach
     }else{
       eventData.putBoolean("app_closed", this.isAppInBackground);
     }
-    reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher().dispatchEvent(
-      new ChangeVisibilityEvent(reactTag, this.isViewVisible(), eventData)
-    );
+
+    if(this.handler != null){
+      if (this.isViewVisible()){
+        this.handler.viewDidEnterVisibleArea(this, eventData);
+      }else{
+        this.handler.viewDidLeaveVisibleArea(this, eventData);
+      }
+    }
+
   }
 
   /**
@@ -301,6 +326,9 @@ public class VisibilityAwareView extends ReactViewGroup implements View.OnAttach
     this.stopIntervalForVisibilityCheck();
     this.removeOnLayoutChangeListener(this);
     this.removeOnAttachStateChangeListener(this);
+    if(this.reactApplicationContext != null){
+      this.reactApplicationContext.removeLifecycleEventListener(this);
+    }
   }
 }
 
