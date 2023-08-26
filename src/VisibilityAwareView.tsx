@@ -2,11 +2,8 @@ import React, { useRef } from 'react';
 
 import { UIManager, findNodeHandle } from 'react-native';
 
-import {
-  VisibilityAwareViewComponentName,
-  VisibilityAwareViewHandle,
-  type VisibilityAwareViewProps,
-} from './VisibilityAwareViewNativeComponent';
+import { VisibilityAwareViewComponentName, VisibilityAwareViewHandle } from './VisibilityAwareViewNativeComponent';
+import type { VisibilityAwareViewProps } from './VisibilityAwareViewNativeComponent';
 
 const NativeVisibilityAwareView = require('./VisibilityAwareViewNativeComponent').default;
 
