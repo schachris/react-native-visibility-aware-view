@@ -1,32 +1,46 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
-import { UIManager, findNodeHandle } from 'react-native';
+import { UIManager, findNodeHandle } from "react-native";
 
-import { VisibilityAwareViewComponentName, VisibilityAwareViewHandle } from './VisibilityAwareViewNativeComponent';
-import type { VisibilityAwareViewProps } from './VisibilityAwareViewNativeComponent';
+import type { VisibilityAwareViewProps } from "./VisibilityAwareViewNativeComponent";
+import {
+  VisibilityAwareViewComponentName,
+  VisibilityAwareViewHandle
+} from "./VisibilityAwareViewNativeComponent";
 
-const NativeVisibilityAwareView = require('./VisibilityAwareViewNativeComponent').default;
+const NativeVisibilityAwareView =
+  require("./VisibilityAwareViewNativeComponent").default;
 
-const _VisibilityAwareView: React.ForwardRefRenderFunction<VisibilityAwareViewHandle, VisibilityAwareViewProps> = (
-  props,
-  ref
-) => {
+const _VisibilityAwareView: React.ForwardRefRenderFunction<
+  VisibilityAwareViewHandle,
+  VisibilityAwareViewProps
+> = (props, ref) => {
   const viewRef = useRef(null);
   React.useImperativeHandle(ref, () => {
-    const viewManagerConfig = UIManager.getViewManagerConfig(VisibilityAwareViewComponentName);
+    const viewManagerConfig = UIManager.getViewManagerConfig(
+      VisibilityAwareViewComponentName
+    );
     return {
       start: () => {
         if (!viewManagerConfig.Commands) {
           return;
         }
-        UIManager.dispatchViewManagerCommand(findNodeHandle(viewRef.current), viewManagerConfig.Commands.start!, []);
+        UIManager.dispatchViewManagerCommand(
+          findNodeHandle(viewRef.current),
+          viewManagerConfig.Commands.start!,
+          []
+        );
       },
       stop: () => {
         if (!viewManagerConfig.Commands) {
           return;
         }
-        UIManager.dispatchViewManagerCommand(findNodeHandle(viewRef.current), viewManagerConfig.Commands.stop!, []);
-      },
+        UIManager.dispatchViewManagerCommand(
+          findNodeHandle(viewRef.current),
+          viewManagerConfig.Commands.stop!,
+          []
+        );
+      }
     };
   });
 
