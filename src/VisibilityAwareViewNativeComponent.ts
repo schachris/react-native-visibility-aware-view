@@ -1,9 +1,13 @@
-import type { HostComponent, ViewProps } from 'react-native';
+import type { ViewProps } from "react-native";
 
-import type { BubblingEventHandler, Float, WithDefault } from 'react-native/Libraries/Types/CodegenTypes';
-import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
+import type {
+  BubblingEventHandler,
+  Float,
+  WithDefault
+} from "react-native/Libraries/Types/CodegenTypes";
+import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNativeComponent";
 
-export const VisibilityAwareViewComponentName = 'VisibilityAwareView';
+export const VisibilityAwareViewComponentName = "VisibilityAwareView";
 
 type BecomeVisibleEvent = Readonly<{
   app_open: boolean;
@@ -37,5 +41,5 @@ export type VisibilityAwareViewHandle = {
 };
 
 export default codegenNativeComponent<VisibilityAwareViewProps>(
-  'VisibilityAwareView'
-) as HostComponent<VisibilityAwareViewProps>;
+  "VisibilityAwareView"
+);

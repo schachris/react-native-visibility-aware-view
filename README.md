@@ -15,7 +15,7 @@ npm install react-native-visibility-aware-view
 ## Usage
 
 ```js
-import { VisibilityAwareView } from 'react-native-visibility-aware-view';
+import { VisibilityAwareView } from "react-native-visibility-aware-view";
 
 // ...
 
@@ -34,13 +34,10 @@ import { VisibilityAwareView } from 'react-native-visibility-aware-view';
 
 #### iOS
 
-Navigate to example/package.json and set _RCT_NEW_ARCH_ENABLED=1_ in pods script
-
-then run
-
 ```sh
 yarn clean
 yarn
+cd example/ios && RCT_NEW_ARCH_ENABLED=1 bundle exec pod install && cd ../..
 # and then
 yarn example ios
 ```

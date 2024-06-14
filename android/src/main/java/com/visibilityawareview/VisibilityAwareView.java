@@ -183,8 +183,8 @@ public class VisibilityAwareView extends ReactViewGroup implements View.OnAttach
   }
 
   public static class ChangeVisibilityEvent extends Event<ChangeVisibilityEvent> {
-    public static final String BECOME_VISIBLE_EVENT_NAME = "topOnBecomeVisible";
-    public static final String BECOME_INVISIBLE_EVENT_NAME = "topOnBecomeInvisible";
+    public static final String BECOME_VISIBLE_EVENT_NAME = "onBecomeVisible";
+    public static final String BECOME_INVISIBLE_EVENT_NAME = "onBecomeInvisible";
 
     private final boolean isVisible;
     private final WritableMap eventData;

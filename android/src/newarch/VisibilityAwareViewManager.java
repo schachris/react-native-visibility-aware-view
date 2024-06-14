@@ -65,10 +65,10 @@ public class VisibilityAwareViewManager extends com.visibilityawareview.Visibili
     Map<String, Object> eventTypeConstants = baseEventTypeConstants == null ? new HashMap() : baseEventTypeConstants;
     ((Map)eventTypeConstants).putAll(
       MapBuilder.builder()
-        .put("topOnBecomeVisible",
+        .put("onBecomeVisible",
           MapBuilder.of("phasedRegistrationNames",
             MapBuilder.of("bubbled", "onBecomeVisible")))
-        .put("topOnBecomeInvisible",
+        .put("onBecomeInvisible",
           MapBuilder.of("phasedRegistrationNames",
             MapBuilder.of("bubbled", "onBecomeInvisible"))).build());
           return (Map)eventTypeConstants;

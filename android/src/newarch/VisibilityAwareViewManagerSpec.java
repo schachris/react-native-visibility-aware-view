@@ -14,11 +14,11 @@ import com.facebook.react.viewmanagers.VisibilityAwareViewManagerInterface;
 import com.facebook.soloader.SoLoader;
 
 public abstract class VisibilityAwareViewManagerSpec<T extends ViewGroup> extends ViewGroupManager<T> implements VisibilityAwareViewManagerInterface<T> {
-  static {
-    if (BuildConfig.CODEGEN_MODULE_REGISTRATION != null) {
-      SoLoader.loadLibrary(BuildConfig.CODEGEN_MODULE_REGISTRATION);
-    }
-  }
+//  static {
+//    if (BuildConfig.CODEGEN_MODULE_REGISTRATION != null) {
+//      SoLoader.loadLibrary(BuildConfig.CODEGEN_MODULE_REGISTRATION);
+//    }
+//  }
 
   private final ViewManagerDelegate<T> mDelegate;
 
