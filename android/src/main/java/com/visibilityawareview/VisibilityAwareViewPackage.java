@@ -14,7 +14,7 @@ public class VisibilityAwareViewPackage implements ReactPackage {
   @Override
   public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
     List<ViewManager> viewManagers = new ArrayList<>();
-    viewManagers.add(new VisibilityAwareViewManager(reactContext));
+    viewManagers.add(new com.visibilityawareview.VisibilityAwareViewManager(reactContext));
     return viewManagers;
   }
 

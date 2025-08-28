@@ -12,12 +12,13 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.facebook.react.uimanager.ViewGroupManager;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @ReactModule(name = VisibilityAwareViewManager.NAME)
-public class VisibilityAwareViewManager extends com.visibilityawareview.VisibilityAwareViewManagerSpec<VisibilityAwareView> {
+public class VisibilityAwareViewManager extends ViewGroupManager<VisibilityAwareView> {
 
   public static final String NAME = VisibilityAwareViewManagerImpl.NAME;
 
@@ -103,19 +104,16 @@ public class VisibilityAwareViewManager extends com.visibilityawareview.Visibili
     return (Map)eventTypeConstants;
   }
 
-  @Override
   @ReactProp(name = "accuracy")
   public void setTrackingAccuracy(VisibilityAwareView view, @Nullable double accuracy) {
     VisibilityAwareViewManagerImpl.setTrackingAccuracy(view, accuracy);
   }
 
-  @Override
   @ReactProp(name = "minVisibleArea")
   public void setMinVisibleArea(VisibilityAwareView view, @Nullable double minVisibleArea) {
     VisibilityAwareViewManagerImpl.setMinVisibleArea(view, minVisibleArea);
   }
 
-  @Override
   @ReactProp(name = "ignoreAppState")
   public void setIgnoreAppState(VisibilityAwareView view, @Nullable boolean ignoreAppState) {
     VisibilityAwareViewManagerImpl.setIgnoreAppState(view, ignoreAppState);
