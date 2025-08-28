@@ -4,6 +4,7 @@
   "description": "A view that is aware of its visibility",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
+  "react-native": "./src/index.ts",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
     ".": {
