@@ -1,10 +1,10 @@
 #ifdef RCT_NEW_ARCH_ENABLED
 #import "VisibilityAwareView.h"
 
-#import <react/renderer/components/RNVisibilityAwareViewSpec/ComponentDescriptors.h>
-#import <react/renderer/components/RNVisibilityAwareViewSpec/EventEmitters.h>
-#import <react/renderer/components/RNVisibilityAwareViewSpec/Props.h>
-#import <react/renderer/components/RNVisibilityAwareViewSpec/RCTComponentViewHelpers.h>
+#import <VisibilityAwareView/ComponentDescriptors.h>
+#import <VisibilityAwareView/EventEmitters.h>
+#import <VisibilityAwareView/Props.h>
+#import <VisibilityAwareView/RCTComponentViewHelpers.h>
 
 #import "RCTFabricComponentsPlugins.h"
 #import "Utils.h"

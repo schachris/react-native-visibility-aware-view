@@ -4,7 +4,6 @@
   "description": "A view that is aware of its visibility",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
-  "react-native": "./src/index.tsx",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
     ".": {
@@ -54,9 +53,9 @@
   "author": "Christian Schaffrath <mail@christianschaffrath.de> (https://www.christianschaffrath.de)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/schachris/react-native-visibility-aware-view.git/issues"
+    "url": "https://github.com/schachris/react-native-visibility-aware-view/issues"
   },
-  "homepage": "https://github.com/schachris/react-native-visibility-aware-view.git#readme",
+  "homepage": "https://github.com/schachris/react-native-visibility-aware-view#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -156,6 +155,7 @@
     "source": "src",
     "output": "lib",
     "targets": [
+      "codegen",
       [
         "module",
         {
@@ -170,9 +170,27 @@
       ]
     ]
   },
+  "codegenConfig": {
+    "name": "RNVisibilityAwareViewSpec",
+    "type": "all",
+    "jsSrcsDir": "src",
+    "outputDir": {
+      "ios": "ios/generated",
+      "android": "android/generated"
+    },
+    "android": {
+      "javaPackageName": "com.visibilityawareview"
+    },
+    "ios": {
+      "componentProvider": {
+        "VisibilityAwareView": "VisibilityAwareView"
+      }
+    },
+    "includesGeneratedCode": true
+  },
   "create-react-native-library": {
-    "type": "legacy-view",
     "languages": "kotlin-objc",
+    "type": "fabric-view",
     "version": "0.49.8"
   }
 }
