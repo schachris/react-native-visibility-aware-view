@@ -48,6 +48,7 @@ using namespace facebook::react;
 
     _view = [[CVisibilityAwareView alloc] init];
     _view.delegate = self;
+    _view.userInteractionEnabled = NO;
       
     self.contentView = _view;
   }
