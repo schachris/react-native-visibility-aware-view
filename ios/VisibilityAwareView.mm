@@ -1,10 +1,10 @@
-#ifdef RCT_NEW_ARCH_ENABLED
 #import "VisibilityAwareView.h"
 
-#import <VisibilityAwareView/ComponentDescriptors.h>
-#import <VisibilityAwareView/EventEmitters.h>
-#import <VisibilityAwareView/Props.h>
-#import <VisibilityAwareView/RCTComponentViewHelpers.h>
+#import <React/RCTConversions.h>
+
+#import <react/renderer/components/VisibilityAwareViewSpec/ComponentDescriptors.h>
+#import <react/renderer/components/VisibilityAwareViewSpec/Props.h>
+#import <react/renderer/components/VisibilityAwareViewSpec/RCTComponentViewHelpers.h>
 
 #import "RCTFabricComponentsPlugins.h"
 #import "Utils.h"
@@ -49,7 +49,7 @@ using namespace facebook::react;
     _view = [[CVisibilityAwareView alloc] init];
     _view.delegate = self;
     _view.userInteractionEnabled = NO;
-      
+
     self.contentView = _view;
   }
 
@@ -85,4 +85,3 @@ Class<RCTComponentViewProtocol> VisibilityAwareViewCls(void)
 }
 
 @end
-#endif

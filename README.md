@@ -4,12 +4,12 @@
 
 A view which is aware of its visibility. It also tracks itself when the view is scrolled or moved.
 
-This library supports both architectures. The old one and fabric (new arch).
+Starting from version `0.6.0` only the new arch architecture is supported.
 
 ## Installation
 
 ```sh
-npm install react-native-visibility-aware-view
+yarn add react-native-visibility-aware-view
 ```
 
 ## Usage
@@ -28,47 +28,11 @@ import { VisibilityAwareView } from "react-native-visibility-aware-view";
 />;
 ```
 
-## Testing
-
-### New Arch
-
-#### iOS
-
-```sh
-yarn clean
-yarn
-cd example/ios && RCT_NEW_ARCH_ENABLED=1 bundle exec pod install && cd ../..
-# and then
-yarn example ios
-```
-
-#### Android
-
-Navigate to example/android/gradle.properties and set _newArchEnabled=true_
-then run
-
-```sh
-yarn clean
-yarn
-# and then
-yarn example android
-```
-
-##### generate Artifacts
-
-```sh
-cd ./example/android
-./gradlew generateCodegenArtifactsFromSchema
-cd ../../
-yarn example android
-
-# or
-cd ./example/android && ./gradlew generateCodegenArtifactsFromSchema && cd ../../ && yarn example android
-```
-
 ## Contributing
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+- [Development workflow](CONTRIBUTING.md#development-workflow)
+- [Sending a pull request](CONTRIBUTING.md#sending-a-pull-request)
+- [Code of conduct](CODE_OF_CONDUCT.md)
 
 ## License
 
