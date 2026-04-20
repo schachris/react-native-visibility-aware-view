@@ -1,11 +1,8 @@
-import type { ViewProps } from "react-native";
-
-import type {
-  BubblingEventHandler,
-  Float,
-  WithDefault
-} from "react-native/Libraries/Types/CodegenTypes";
-import codegenNativeComponent from "react-native/Libraries/Utilities/codegenNativeComponent";
+import {
+  codegenNativeComponent,
+  type CodegenTypes,
+  type ViewProps
+} from "react-native";
 
 export const VisibilityAwareViewComponentName = "VisibilityAwareView";
 
@@ -19,20 +16,24 @@ type BecomeInvisibleEvent = Readonly<{
   frame_visible: boolean;
 }>;
 
-export interface VisibilityAwareViewProps extends ViewProps {
-  accuracy?: WithDefault<Float, 250>;
+export interface NativeProps extends ViewProps {
+  accuracy?: CodegenTypes.WithDefault<CodegenTypes.Float, 250>;
   /**
    * Percentage between {0,1} on how much the view must be visible to the user the be "visible"
    */
-  minVisibleArea?: WithDefault<Float, 0.01>;
+  minVisibleArea?: CodegenTypes.WithDefault<CodegenTypes.Float, 0.01>;
   /**
    * Usually a view is not visible when the app is in background.
    * When setting to true it will disable this feature.
    * @default: false
    */
-  ignoreAppState?: WithDefault<boolean, false>;
-  onBecomeVisible?: BubblingEventHandler<Readonly<BecomeVisibleEvent>>;
-  onBecomeInvisible?: BubblingEventHandler<Readonly<BecomeInvisibleEvent>>;
+  ignoreAppState?: CodegenTypes.WithDefault<boolean, false>;
+  onBecomeVisible?: CodegenTypes.BubblingEventHandler<
+    Readonly<BecomeVisibleEvent>
+  >;
+  onBecomeInvisible?: CodegenTypes.BubblingEventHandler<
+    Readonly<BecomeInvisibleEvent>
+  >;
 }
 
 export type VisibilityAwareViewHandle = {
@@ -40,6 +41,4 @@ export type VisibilityAwareViewHandle = {
   stop: () => void;
 };
 
-export default codegenNativeComponent<VisibilityAwareViewProps>(
-  "VisibilityAwareView"
-);
+export default codegenNativeComponent<NativeProps>("VisibilityAwareView");

@@ -1,50 +1,8 @@
-import React, { useRef } from "react";
+import { View } from "react-native";
+import type { NativeProps } from "./VisibilityAwareViewNativeComponent";
 
-import { UIManager, findNodeHandle } from "react-native";
+type Props = NativeProps;
 
-import type { VisibilityAwareViewProps } from "./VisibilityAwareViewNativeComponent";
-import {
-  VisibilityAwareViewComponentName,
-  VisibilityAwareViewHandle
-} from "./VisibilityAwareViewNativeComponent";
-
-const NativeVisibilityAwareView =
-  require("./VisibilityAwareViewNativeComponent").default;
-
-const _VisibilityAwareView: React.ForwardRefRenderFunction<
-  VisibilityAwareViewHandle,
-  VisibilityAwareViewProps
-> = (props, ref) => {
-  const viewRef = useRef(null);
-  React.useImperativeHandle(ref, () => {
-    const viewManagerConfig = UIManager.getViewManagerConfig(
-      VisibilityAwareViewComponentName
-    );
-    return {
-      start: () => {
-        if (!viewManagerConfig.Commands) {
-          return;
-        }
-        UIManager.dispatchViewManagerCommand(
-          findNodeHandle(viewRef.current),
-          viewManagerConfig.Commands.start!,
-          []
-        );
-      },
-      stop: () => {
-        if (!viewManagerConfig.Commands) {
-          return;
-        }
-        UIManager.dispatchViewManagerCommand(
-          findNodeHandle(viewRef.current),
-          viewManagerConfig.Commands.stop!,
-          []
-        );
-      }
-    };
-  });
-
-  return <NativeVisibilityAwareView {...props} ref={viewRef} />;
-};
-
-export const VisibilityAwareView = React.forwardRef(_VisibilityAwareView);
+export function VisibilityAwareView({ style, ...rest }: Props) {
+  return <View {...rest} style={style} />;
+}
