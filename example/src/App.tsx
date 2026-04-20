@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Switch,
   Text,
+  TouchableOpacity,
   View
 } from "react-native";
 
@@ -29,7 +30,13 @@ function ViewWithVisibility() {
       style={styles.borderedBox}
     >
       <Text>{txt}</Text>
-      <Text>{txt}</Text>
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert("Touch working");
+        }}
+      >
+        <Text>Press Me</Text>
+      </TouchableOpacity>
       <Text>{txt}</Text>
       <Text>{txt}</Text>
       <Text>{txt}</Text>
@@ -51,6 +58,17 @@ export default function App() {
       </View>
       <Text>ignoreAppState</Text>
       <Switch onValueChange={setIgnoreAppState} value={ignoreAppState} />
+
+      <VisibilityAwareView>
+        <TouchableOpacity
+          onPress={() => {
+            Alert.alert("Press is working");
+          }}
+        >
+          <Text>Hello Visibility View</Text>
+        </TouchableOpacity>
+      </VisibilityAwareView>
+
       <ScrollView style={styles.container}>
         <View style={styles.topScrollSpace} />
         <VisibilityAwareView
